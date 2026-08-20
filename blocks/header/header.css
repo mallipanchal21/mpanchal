@@ -270,3 +270,50 @@ header nav .nav-sections ul > li > ul > li {
 header nav .nav-tools {
   grid-area: tools;
 }
+
+/* breadcrumbs */
+/* stylelint-disable no-descending-specificity */
+header nav.breadcrumbs {
+  display: block;
+  max-width: 1264px;
+  margin: 0 auto;
+  padding: 8px 24px;
+  font-size: var(--body-font-size-s);
+}
+
+header nav.breadcrumbs ol {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+header nav.breadcrumbs ol li {
+  display: flex;
+  align-items: center;
+}
+
+header nav.breadcrumbs ol li:not(:first-child)::before {
+  content: '/';
+  margin-right: 8px;
+  color: var(--dark-color);
+}
+
+header nav.breadcrumbs a {
+  color: var(--link-color);
+  text-decoration: none;
+}
+
+header nav.breadcrumbs a:hover {
+  color: var(--link-hover-color);
+  text-decoration: underline;
+}
+
+header nav.breadcrumbs ol li[aria-current='page'] {
+  color: var(--text-color);
+  font-weight: 700;
+}
+/* stylelint-enable no-descending-specificity */
