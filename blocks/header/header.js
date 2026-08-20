@@ -109,6 +109,48 @@ function toggleMenu(nav, navSections, forceExpanded = null) {
 }
 
 /**
+ * Builds a "Home > Current Page" breadcrumb from the current URL path.
+ * Returns null on the home page (root), so no breadcrumb is rendered there.
+ * @returns {Element|null} The breadcrumb nav element, or null
+ */
+function buildBreadcrumbs() {
+  const { pathname } = window.location;
+  const segments = pathname.split('/').filter((s) => s.length);
+  // strip a trailing "index" so the home page renders no breadcrumb
+  if (segments[segments.length - 1] === 'index') segments.pop();
+  if (segments.length === 0) return null; // home page — no breadcrumb
+
+  const breadcrumbs = document.createElement('nav');
+  breadcrumbs.className = 'breadcrumbs';
+  breadcrumbs.setAttribute('aria-label', 'Breadcrumb');
+
+  const list = document.createElement('ol');
+
+  // Home crumb (always a link)
+  const homeItem = document.createElement('li');
+  const homeLink = document.createElement('a');
+  homeLink.href = '/';
+  homeLink.textContent = 'Home';
+  homeItem.append(homeLink);
+  list.append(homeItem);
+
+  // Current page crumb (plain text, from the last path segment)
+  const lastSegment = segments[segments.length - 1];
+  const title = getMetadata('breadcrumb-title')
+    || lastSegment
+      .replace(/\.[^.]+$/, '') // strip extension
+      .replace(/-/g, ' ')
+      .replace(/\b\w/g, (c) => c.toUpperCase());
+  const currentItem = document.createElement('li');
+  currentItem.setAttribute('aria-current', 'page');
+  currentItem.textContent = title;
+  list.append(currentItem);
+
+  breadcrumbs.append(list);
+  return breadcrumbs;
+}
+
+/**
  * loads and decorates the header, mainly the nav
  * @param {Element} block The header block element
  */
@@ -167,5 +209,9 @@ export default async function decorate(block) {
   const navWrapper = document.createElement('div');
   navWrapper.className = 'nav-wrapper';
   navWrapper.append(nav);
+
+  const breadcrumbs = buildBreadcrumbs();
+  if (breadcrumbs) navWrapper.append(breadcrumbs);
+
   block.append(navWrapper);
 }
