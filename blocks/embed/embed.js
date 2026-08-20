@@ -46,6 +46,15 @@ const embedTwitter = (url) => {
   return embedHTML;
 };
 
+const loadEmbedMarkup = (block, markup) => {
+  if (block.classList.contains('embed-is-loaded')) {
+    return;
+  }
+  block.innerHTML = markup;
+  block.classList = 'block embed embed-markup';
+  block.classList.add('embed-is-loaded');
+};
+
 const loadEmbed = (block, link, autoplay) => {
   if (block.classList.contains('embed-is-loaded')) {
     return;
@@ -75,7 +84,24 @@ const loadEmbed = (block, link, autoplay) => {
 };
 
 export default async function decorate(block) {
+  // Authors can provide either a URL (link/text) that we transform into an
+  // embed, or raw HTML markup (e.g. a full <iframe>/<blockquote>) that we
+  // render as-is. Detect embeddable markup so pasted iframes just work.
+  const markupEl = block.querySelector('iframe, blockquote, embed, object, video');
   const link = block.querySelector('a');
+
+  if (markupEl && !link) {
+    const markup = block.innerHTML;
+    const observer = new IntersectionObserver((entries) => {
+      if (entries.some((e) => e.isIntersecting)) {
+        observer.disconnect();
+        loadEmbedMarkup(block, markup);
+      }
+    });
+    observer.observe(block);
+    return;
+  }
+
   const url = link ? link.href : block.textContent.trim();
 
   block.textContent = '';

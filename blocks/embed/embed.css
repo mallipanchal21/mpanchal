@@ -11,6 +11,14 @@
   display: block;
 }
 
+/* Author-provided raw markup (e.g. a pasted iframe) — make it responsive */
+.embed.embed-markup iframe {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  height: auto;
+  border: 0;
+}
+
 /* X / Twitter posts render centered */
 .embed.embed-twitter {
   display: flex;
