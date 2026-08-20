@@ -1,0 +1,17 @@
+{
+  "name": "Banner",
+  "description": "Full-width banner with a background image and an overlaid title bar. Supports a dark variant.",
+  "variantName": "banner",
+  "visualCharacteristics": {
+    "purpose": "Highlight a page or section with a wide image and a colored title bar overlaid at the bottom."
+  },
+  "contentPattern": {
+    "structure": "Two rows: the first holds the background image (picture), the second holds the title text."
+  },
+  "variants": [
+    { "variantName": "dark", "name": "Banner (Dark)", "description": "Banner with a dark title bar instead of the default blue." }
+  ],
+  "usage": {
+    "pagesUsing": []
+  }
+}
