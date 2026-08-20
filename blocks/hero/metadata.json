@@ -1,0 +1,15 @@
+{
+  "name": "Hero",
+  "description": "Full-width hero banner with a background image and an overlaid heading.",
+  "variantName": "hero",
+  "visualCharacteristics": {
+    "purpose": "Introduce a page with a prominent full-width banner combining a background image and a headline."
+  },
+  "contentPattern": {
+    "structure": "A single cell containing a background image (picture) and a heading (h1)."
+  },
+  "variants": [],
+  "usage": {
+    "pagesUsing": []
+  }
+}
