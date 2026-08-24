@@ -1,0 +1,10 @@
+{
+  "libraryUrl": "https://main--mpanchal--mallipanchal21.aem.page/"
+  "sites": {
+    "mpanchal": {
+      "previewOrg": "mallipanchal21",
+      "previewSite": "mpanchal",
+      "contentHostUrl": "https://content.da.live/mallipanchal21/mpanchal/"
+    }
+  }
+}

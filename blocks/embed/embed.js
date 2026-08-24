@@ -102,6 +102,7 @@ export default async function decorate(block) {
     return;
   }
 
+  const link = block.querySelector('a');
   const url = link ? link.href : block.textContent.trim();
 
   block.textContent = '';
