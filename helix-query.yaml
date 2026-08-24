@@ -1,0 +1,27 @@
+version: 1
+
+indices:
+  default:
+    include:
+      - '/**'
+    exclude:
+      - '/drafts/**'
+      - '/tools/**'
+    target: /query-index.json
+    properties:
+      path:
+        select: none
+        value: |
+          path(rootpath(@))
+      title:
+        select: head > title
+        value: |
+          textContent(el)
+      description:
+        select: head > meta[name="description"]
+        value: |
+          attribute(el, "content")
+      image:
+        select: head > meta[property="og:image"]
+        value: |
+          match(attribute(el, "content"), "https:\/\/[^/]+(/.*)")
